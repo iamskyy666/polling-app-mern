@@ -55,7 +55,7 @@ export const register = async (req, res) => {
     });
 
     // send OTP through email
-    await sendOtpEmail(email, otp, "verify your Polling account");
+    await sendOtpEmail(email, otp, "verify your Pollix account");
     res.status(200).json({
       needVerification: true,
       email,
@@ -104,7 +104,7 @@ export const resendOtp = async (req, res) => {
 
     await user.save();
 
-    await sendOtpEmail(user.email, user.otp, "Verify your polling-account");
+    await sendOtpEmail(user.email, user.otp, "Verify your Pollix account");
     res.json({ message: "OTP sent successfully!" });
   } catch (error) {
     console.log("🔴ERROR:", error);

@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "Backend/Server of the POLLIFY APP.",
+  "description": "Backend/Server of the POLLIX APP.",
   "license": "ISC",
   "author": "Soumadip Banerjee",
   "type": "module",
