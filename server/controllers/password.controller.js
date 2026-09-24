@@ -48,23 +48,30 @@ export const verifyResetOtp = async (req, res) => {
 export const resetPassword = async (req, res) => {
   try {
     const { email, otp, password } = req.body;
+
     if (!password || password.length < 8) {
       return res
         .status(400)
         .json({ message: "Password must be atleast 8 characters." });
     }
+
+    const user = await UserModel.findOne({ email });
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
-    if (!otpValid(user, otp))
+
+    if (!otpValid(user, otp)) {
       return res.status(400).json({
         message: "Invalid or expired OTP",
       });
+    }
 
     user.password = password;
     user.otp = undefined;
     user.otpExpires = undefined;
     user.isVerified = true;
+
     await user.save();
 
     res.json({ message: "Password reset successfully!" });
