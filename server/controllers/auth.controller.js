@@ -7,7 +7,10 @@ import { genreateOtp, otpExpiry, otpValid } from "../utils/otp.js";
 import jwt from "jsonwebtoken";
 
 // for token-generation
-const makeToken = jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
+const makeToken = (id) =>
+  jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: "7d",
+  });
 const clean = (u) => ({
   // clean-user - exclude password field.
   _id: u._id,
@@ -97,7 +100,7 @@ export const verifyOtp = async (req, res) => {
 //! resend OTP
 export const resendOtp = async (req, res) => {
   try {
-    const user = findOne({ email: req.body.email });
+    const user = await UserModel.findOne({ email: req.body.email });
     if (!user) return res.status(404).json({ message: "User NOT FOUND!" });
     user.otp = genreateOtp();
     user.otpExpires = otpExpiry();
@@ -171,7 +174,7 @@ export const updateProfile = async (req, res) => {
 //! to change password
 export const changePassword = async (req, res) => {
   try {
-    const { currPassword, newPassword } = req.bdoy;
+    const { currPassword, newPassword } = req.body;
     if (!newPassword || newPassword.length < 8) {
       return res.status(400).json({
         message: "New Password must be atleast 8 characters!",

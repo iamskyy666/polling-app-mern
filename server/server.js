@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import "dotenv/config";
 import connectDB from "./config/db.js";
+import authRouter from "./routes/auth.routes.js";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -14,6 +15,8 @@ app.use(express.json());
 app.get("/", (_, res) => {
   res.json({ code: 200, message: "Pollify-API Working ✅" });
 });
+
+app.use("/api/v1/auth", authRouter);
 
 const start = async () => {
   try {
@@ -31,4 +34,4 @@ const start = async () => {
 
 start();
 
-//00.39.03
+//=

@@ -26,7 +26,7 @@ export const forgotPassword = async (req, res) => {
 };
 
 //! check whether OTP is valid
-export const verifyOtp = async (req, res) => {
+export const verifyResetOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
     const user = await UserModel.findOne({ email });

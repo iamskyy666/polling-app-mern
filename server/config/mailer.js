@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { otpExpiry } from "../utils/otp";
+import { otpExpiry } from "../utils/otp.js";
 
 // create transporter
 const transporter = nodemailer.createTransport({
